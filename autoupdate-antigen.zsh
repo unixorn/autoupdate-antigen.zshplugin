@@ -20,6 +20,14 @@ if [ -z $ANTIGEN_SYSTEM_UPDATE_DAYS ]; then
   ANTIGEN_SYSTEM_UPDATE_DAYS=7
 fi
 
+if [ -z $ANTIGEN_SYSTEM_RECEIPT_F ]; then
+  ANTIGEN_SYSTEM_RECEIPT_F='.antigen_system_lastupdate'
+fi
+
+if [ -z $ANTIGEN_PLUGIN_RECEIPT_F ]; then
+  ANTIGEN_PLUGIN_RECEIPT_F='.antigen_plugin_lastupdate'
+fi
+
 function check_interval() {
   now=$(date +%s)
   if [ -f ~/${1} ]; then
@@ -30,9 +38,6 @@ function check_interval() {
   interval=$(expr ${now} - ${last_update})
   echo ${interval}
 }
-
-ANTIGEN_SYSTEM_RECEIPT_F='.antigen_system_lastupdate'
-ANTIGEN_PLUGIN_RECEIPT_F='.antigen_plugin_lastupdate'
 
 day_seconds=$(expr 24 \* 60 \* 60)
 system_seconds=$(expr ${day_seconds} \* ${ANTIGEN_SYSTEM_UPDATE_DAYS})
@@ -57,7 +62,9 @@ fi
 
 # clean up after ourselves
 unset ANTIGEN_PLUGIN_RECEIPT_F
+unset ANTIGEN_PLUGIN_UPDATE_DAYS
 unset ANTIGEN_SYSTEM_RECEIPT_F
+unset ANTIGEN_SYSTEM_UPDATE_DAYS
 unset day_seconds
 unset last_plugin
 unset last_system
