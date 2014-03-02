@@ -47,15 +47,19 @@ last_plugin=$(check_interval ${ANTIGEN_PLUGIN_RECEIPT_F})
 last_system=$(check_interval ${ANTIGEN_SYSTEM_RECEIPT_F})
 
 if [ ${last_plugin} -gt ${plugins_seconds} ]; then
-  echo "It has been $(expr ${last_plugin} / $day_seconds) days since your antigen plugins were updated"
-  echo "Updating plugins"
+  if [ ! -z $ANTIGEN_AUTOUPDATE_VERBOSE ]; then
+    echo "It has been $(expr ${last_plugin} / $day_seconds) days since your antigen plugins were updated"
+    echo "Updating plugins"
+  fi
   antigen update
   $(date +%s > ~/${ANTIGEN_PLUGIN_RECEIPT_F})
 fi
 
 if [ ${last_system} -gt ${system_seconds} ]; then
-  echo "It has been $(expr ${last_plugin} / $day_seconds) days since your antigen was updated"
-  echo "Updating antigen..."
+  if [ ! -z $ANTIGEN_AUTOUPDATE_VERBOSE ]; then
+    echo "It has been $(expr ${last_plugin} / $day_seconds) days since your antigen was updated"
+    echo "Updating antigen..."
+  fi
   antigen selfupdate
   $(date +%s > ~/${ANTIGEN_SYSTEM_RECEIPT_F})
 fi
