@@ -12,19 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if [ -z $ANTIGEN_PLUGIN_UPDATE_DAYS ]; then
+if [ -z "$ANTIGEN_PLUGIN_UPDATE_DAYS" ]; then
   ANTIGEN_PLUGIN_UPDATE_DAYS=7
 fi
 
-if [ -z $ANTIGEN_SYSTEM_UPDATE_DAYS ]; then
+if [ -z "$ANTIGEN_SYSTEM_UPDATE_DAYS" ]; then
   ANTIGEN_SYSTEM_UPDATE_DAYS=7
 fi
 
-if [ -z $ANTIGEN_SYSTEM_RECEIPT_F ]; then
+if [ -z "$ANTIGEN_SYSTEM_RECEIPT_F" ]; then
   ANTIGEN_SYSTEM_RECEIPT_F='.antigen_system_lastupdate'
 fi
 
-if [ -z $ANTIGEN_PLUGIN_RECEIPT_F ]; then
+if [ -z "$ANTIGEN_PLUGIN_RECEIPT_F" ]; then
   ANTIGEN_PLUGIN_RECEIPT_F='.antigen_plugin_lastupdate'
 fi
 
@@ -47,7 +47,7 @@ last_plugin=$(check_interval ${ANTIGEN_PLUGIN_RECEIPT_F})
 last_system=$(check_interval ${ANTIGEN_SYSTEM_RECEIPT_F})
 
 if [ ${last_plugin} -gt ${plugins_seconds} ]; then
-  if [ ! -z $ANTIGEN_AUTOUPDATE_VERBOSE ]; then
+  if [ ! -z "$ANTIGEN_AUTOUPDATE_VERBOSE" ]; then
     echo "It has been $(expr ${last_plugin} / $day_seconds) days since your antigen plugins were updated"
     echo "Updating plugins"
   fi
@@ -56,7 +56,7 @@ if [ ${last_plugin} -gt ${plugins_seconds} ]; then
 fi
 
 if [ ${last_system} -gt ${system_seconds} ]; then
-  if [ ! -z $ANTIGEN_AUTOUPDATE_VERBOSE ]; then
+  if [ ! -z "$ANTIGEN_AUTOUPDATE_VERBOSE" ]; then
     echo "It has been $(expr ${last_plugin} / $day_seconds) days since your antigen was updated"
     echo "Updating antigen..."
   fi
